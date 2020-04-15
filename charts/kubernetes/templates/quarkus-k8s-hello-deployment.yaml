@@ -1,0 +1,65 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    jkube.io/git-branch: master
+    jkube.io/git-url: https://github.com/survivant/quarkus-k8s-hello.git
+    jkube.io/git-commit: c75ddc68d748b11d7c1eeb0129afde49ee9eea9d
+  labels:
+    app: quarkus-k8s-hello
+    provider: jkube
+    version: 1.0.0-SNAPSHOT
+    group: ca.demo
+  name: quarkus-k8s-hello
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: quarkus-k8s-hello
+      provider: jkube
+      group: ca.demo
+  template:
+    metadata:
+      annotations:
+        jkube.io/git-url: https://github.com/survivant/quarkus-k8s-hello.git
+        jkube.io/git-commit: c75ddc68d748b11d7c1eeb0129afde49ee9eea9d
+        jkube.io/git-branch: master
+      labels:
+        app: quarkus-k8s-hello
+        provider: jkube
+        version: 1.0.0-SNAPSHOT
+        group: ca.demo
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        image: demo/quarkus-k8s-hello:latest
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 10
+          successThreshold: 1
+        name: quarkus
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 5
+          successThreshold: 1
+        securityContext:
+          privileged: false

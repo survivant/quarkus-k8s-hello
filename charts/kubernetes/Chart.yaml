@@ -1,0 +1,14 @@
+---
+name: quarkus-k8s-hello-1.0.0-SNAPSHOT
+sources:
+- https://different.source/yaml.yml
+version: 1.0.0-SNAPSHOT
+description: A customized description for the chart
+keywords:
+- ci
+- cd
+- server
+maintainers:
+- name: John
+  email: john.doe@example.com
+icon: This is the icon

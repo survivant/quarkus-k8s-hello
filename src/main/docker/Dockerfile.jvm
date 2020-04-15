@@ -36,12 +36,12 @@ RUN microdnf install openssl curl ca-certificates ${JAVA_PACKAGE} \
     && echo "securerandom.source=file:/dev/urandom" >> /etc/alternatives/jre/lib/security/java.security
 
 # Configure the JAVA_OPTIONS, you can add -XshowSettings:vm to also display the heap size.
-ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus.http.port=8181 -Dquarkus.kubernetes-client.master-url=https://10.1.7.114:6443/"
+ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus.http.port=8080 -Dquarkus.kubernetes-client.master-url=https://10.1.7.114:6443/"
 
 COPY target/lib/* /deployments/lib/
 COPY target/*-runner.jar /deployments/app.jar
 
-EXPOSE 8181
+EXPOSE 8080
 USER 1001
 
 ENTRYPOINT [ "/deployments/run-java.sh" ]

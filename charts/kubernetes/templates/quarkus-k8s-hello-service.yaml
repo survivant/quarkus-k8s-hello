@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    jkube.io/git-branch: master
+    jkube.io/git-url: https://github.com/survivant/quarkus-k8s-hello.git
+    jkube.io/git-commit: c75ddc68d748b11d7c1eeb0129afde49ee9eea9d
+  labels:
+    expose: "true"
+    app: quarkus-k8s-hello
+    provider: jkube
+    version: 1.0.0-SNAPSHOT
+    group: ca.demo
+  name: quarkus-k8s-hello
+spec:
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: quarkus-k8s-hello
+    provider: jkube
+    group: ca.demo

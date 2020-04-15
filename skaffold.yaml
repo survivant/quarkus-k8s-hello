@@ -1,0 +1,19 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+metadata:
+  name: quarkus-k8s-hello
+build:
+  local:
+    push: true
+  artifacts:
+    - image: docker.comact.com:5000/quarkus-k8s-hello
+      docker:
+        dockerfile: src/main/docker/Dockerfile.jvm
+deploy:
+  helm:
+    releases:
+      - name: skaffold-quarkus-k8s-hello
+        chartPath: chartmuseum.comact.com/quarkus-k8s-hello
+        remote: true
+        values:
+          image: docker.comact.com:5000/quarkus-k8s-hello
