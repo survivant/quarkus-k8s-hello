@@ -1,17 +1,13 @@
 package ca.demo;
 
-import com.comact.iep.dto.ChartDTO;
-import com.comact.iep.dto.CodecTemplateDTO;
-import com.comact.iep.dto.codec.CodecRequestBean;
-import com.comact.iep.dto.codec.CodecResponseBean;
+import com.example.k8s.ChartDTO;
+import com.example.k8s.CodecTemplateDTO;
+import com.example.k8s.codec.CodecRequestBean;
+import com.example.k8s.codec.CodecResponseBean;
 import io.quarkus.test.junit.QuarkusTest;
-import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest

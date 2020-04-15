@@ -1,14 +1,13 @@
 package ca.demo;
 
-import com.comact.iep.dto.codec.CodecRequestBean;
-import com.comact.iep.dto.codec.CodecResponseBean;
+import com.example.k8s.codec.CodecRequestBean;
+import com.example.k8s.codec.CodecResponseBean;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 import javax.validation.Validation;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.Set;
 
 @Path("/hello")
