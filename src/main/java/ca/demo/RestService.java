@@ -1,9 +1,16 @@
 package ca.demo;
 
+import com.github.fge.jsonpatch.mergepatch.JsonMergePatch;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.inject.Inject;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.PATCH;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.Collection;
 import java.util.UUID;
@@ -36,6 +43,13 @@ public class RestService {
     @Path("/nodes/{id}")
     public String get(@PathParam("id") UUID id) {
         return connector.get(id);
+    }
+
+    @PATCH
+    @Produces("application/merge-patch+json")
+    @Path("/nodes/patch/{id}")
+    public void updatePartial(@PathParam("id") UUID id, JsonMergePatch patch) {
+        connector.updatePartial(id, patch);
     }
 
 

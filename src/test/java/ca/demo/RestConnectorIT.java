@@ -1,11 +1,14 @@
 package ca.demo;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.fge.jsonpatch.JsonPatchException;
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,8 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class RestConnectorIT {
     private static final Logger LOGGER = LoggerFactory.getLogger(RestConnectorIT.class);
 
+    @Inject
+    ObjectMapper mapper;
+
     @Test
-    public void testAll() {
+    public void testAll() throws JsonProcessingException, JsonPatchException {
         String nodeUUID = UUID.randomUUID().toString();
 
         //create

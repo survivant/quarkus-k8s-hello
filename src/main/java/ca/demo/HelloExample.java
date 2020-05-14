@@ -1,14 +1,9 @@
 package ca.demo;
 
-import com.example.k8s.codec.CodecRequestBean;
-import com.example.k8s.codec.CodecResponseBean;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Valid;
-import javax.validation.Validation;
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.Set;
 
 @Path("/hello")
 public class HelloExample {
@@ -19,15 +14,5 @@ public class HelloExample {
         return "hello";
     }
 
-    @POST
-    @Path("/codec/update")
-    public CodecResponseBean update(@Valid CodecRequestBean requestBean) throws Exception {
 
-        System.out.println("We shouldn't be here");
-        Set<ConstraintViolation<CodecRequestBean>> validate = Validation.buildDefaultValidatorFactory().getValidator().validate(requestBean);
-
-        System.out.println(validate);
-
-        return null;
-    }
 }
