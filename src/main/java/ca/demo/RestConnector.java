@@ -32,7 +32,7 @@ public interface RestConnector {
     @PATCH
     @Operation(summary = "Patch a node", description = "Patch a node")
     @Produces("application/merge-patch+json")
-    @Path("/nodes/patch/{id}")
+    @Path("/nodes/{id}")
     void updatePartial(@PathParam("id") UUID id, JsonMergePatch patch);
 
 }

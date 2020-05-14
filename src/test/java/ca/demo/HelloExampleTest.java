@@ -2,13 +2,17 @@ package ca.demo;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.fge.jackson.JsonLoader;
 import com.github.fge.jsonpatch.mergepatch.JsonMergePatch;
 import io.quarkus.test.junit.QuarkusTest;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonValue;
 
+import java.io.StringReader;
 import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
@@ -42,10 +46,14 @@ public class HelloExampleTest {
         //patch
         Fruit fruit = new Fruit();
 
-        String json = mapper.writeValueAsString(fruit);
-        JsonNode dataNode = mapper.readTree(json);
-        JsonMergePatch jsonMergePatch = JsonMergePatch.fromJson(dataNode);
+        JsonValue source = Json.createReader(new StringReader(mapper.writeValueAsString(fruit))).readValue();
 
+        fruit.color="blue";
+
+        JsonValue target = Json.createReader(new StringReader(mapper.writeValueAsString(fruit))).readValue();
+
+        JsonNode dataNode = JsonLoader.fromString(Json.createMergeDiff(source, target).toJsonValue().toString());
+        JsonMergePatch jsonMergePatch = JsonMergePatch.fromJson(dataNode);
 
         connector.updatePartial(UUID.randomUUID(), jsonMergePatch);
 
